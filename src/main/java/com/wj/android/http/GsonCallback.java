@@ -34,6 +34,10 @@ public abstract class GsonCallback<T> extends CommonCallback {
         return mBaseView == null || mBaseView.get() == null;
     }
 
+    protected String convertResponse(String response){
+        return response;
+    }
+
     @Override
     public void onStart(Call<ResponseBody> call) {
         if(checkNull()) return;
@@ -45,7 +49,7 @@ public abstract class GsonCallback<T> extends CommonCallback {
     public void onResponse(Call<ResponseBody> call, ResponseBody responseBody) {
         if(checkNull()) return;
         try{
-            T bean = new Gson().fromJson(responseBody.string(), getType(this));
+            T bean = new Gson().fromJson(convertResponse(responseBody.string()), getType(this));
             onSuccess(bean, mBaseView.get());
         } catch (Exception e) {
             onFailure(call,e);

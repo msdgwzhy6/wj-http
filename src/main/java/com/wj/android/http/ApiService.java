@@ -39,7 +39,6 @@ public interface ApiService {
     @POST
     Call<ResponseBody> post(@Url String url, @FieldMap Map<String, String> params);
 
-    @FormUrlEncoded
     @POST
     Call<ResponseBody> post(@Url String url);
 
